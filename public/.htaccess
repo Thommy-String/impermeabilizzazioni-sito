@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Se il file o la directory richiesta esiste, servila direttamente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Altrimenti riscrivi su index.html (SPA fallback)
+RewriteRule ^ index.html [L]

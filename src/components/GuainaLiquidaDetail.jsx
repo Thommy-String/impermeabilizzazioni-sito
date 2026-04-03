@@ -2,7 +2,7 @@ import React from 'react';
 
 const GuainaLiquidaDetail = () => {
     return (
-        <section className="relative z-10 py-24 bg-slate-50 overflow-hidden w-full -mx-4 md:-mx-6 lg:-mx-12" style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}>
+        <section className="relative z-10 py-24 bg-slate-50 overflow-hidden w-screen -ml-[calc((100vw-100%)/2)]">
             <div className="w-full">
                 <div className="w-full text-left">
                     {/* Header Principale */}

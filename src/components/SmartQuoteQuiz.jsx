@@ -8,6 +8,8 @@ function SmartQuoteQuiz() {
         situation: '',
         size: '',
         sizeLabel: '',
+        demolition: '', // sì/no demolizione pavimento
+        flooring: '', // sì/no fornitura + posa
         priceRange: ''
     });
     
@@ -69,14 +71,65 @@ function SmartQuoteQuiz() {
         scrollToTop();
     };
 
+    const handleDemolitionSelect = (answer) => {
+        setSelections(prev => ({ ...prev, demolition: answer }));
+        setStep(4);
+        scrollToTop();
+    };
+
+    const handleFlooringSelect = (answer) => {
+        setSelections(prev => ({ ...prev, flooring: answer }));
+        setStep(5);
+        scrollToTop();
+    };
+
     const resetQuiz = () => {
         setStep(1);
-        setSelections({ situation: '', size: '', sizeLabel: '', priceRange: '' });
+        setSelections({ situation: '', size: '', sizeLabel: '', demolition: '', flooring: '', priceRange: '' });
         scrollToTop();
     };
 
     // Rimuove simboli e spazi dal numero per WhatsApp
     const cleanPhone = PHONE_NUMBER ? PHONE_NUMBER.replace(/\D/g, '') : "393342221212";
+
+    // Calcola il prezzo finale in base alle selezioni
+    const calculateFinalPrice = () => {
+        // Estrae i numeri dal priceRange (es. "Da € 800 a € 1.200 *" → 800-1200)
+        const priceMatch = selections.priceRange.match(/€\s*([\d.]+)\s*a\s*€\s*([\d.]+)/);
+        if (!priceMatch) return { min: 0, max: 0 };
+        
+        const minBase = parseInt(priceMatch[1].replace(/\D/g, ''));
+        const maxBase = parseInt(priceMatch[2].replace(/\D/g, ''));
+        
+        let addedCost = 0;
+        let addedCostDesc = '';
+        
+        // Stima della superficie in mq (medio)
+        const sizeMqMap = {
+            'small': 15,
+            'medium': 35,
+            'large': 75
+        };
+        const estimatedMq = sizeMqMap[selections.size] || 30;
+        
+        // Se vuole pavimento
+        if (selections.flooring === 'sì') {
+            // Fornitura: €25/mq minimo, €50/mq massimo (qui usiamo medi €30-40)
+            // Posa: €50/mq fisso
+            const floringPerMq = 30 + 50; // €80/mq medio
+            addedCost = Math.round(floringPerMq * estimatedMq);
+            addedCostDesc = `Fornitura + Posa pavimento: ≈€${addedCost}`;
+        }
+        
+        return {
+            min: minBase + addedCost,
+            max: maxBase + addedCost,
+            added: addedCost,
+            addedDesc: addedCostDesc
+        };
+    };
+
+    const finalPrice = calculateFinalPrice();
 
     const generateWhatsAppMessage = () => {
         const text = `Ciao! Ho fatto il calcolatore sul vostro sito.\n\n*Il mio caso:*\nSuperficie: ${selections.sizeLabel}\nSituazione: ${selections.situation}\n\nVorrei ricevere un preventivo formale.`;
@@ -106,7 +159,7 @@ function SmartQuoteQuiz() {
                         <span className="text-red-600">preventivo</span>
                     </h2>
                     <p className="text-slate-600 text-lg md:text-xl font-medium max-w-2xl mx-auto border-l-4 border-red-600 pl-6 py-2 text-left">
-                        Rispondi a 2 veloci domande per avere un'anteprima di spesa immediata.
+                        Rispondi a 4 veloci domande per avere un'anteprima di spesa immediata.
                     </p>
                 </div>
 
@@ -115,7 +168,7 @@ function SmartQuoteQuiz() {
                     
                     {/* Barra di progresso */}
                     <div className="flex h-2 w-full bg-slate-200 absolute top-0 left-0">
-                        <div className={`h-full bg-yellow-400 transition-all duration-500 ease-out`} style={{ width: step === 1 ? '33%' : step === 2 ? '66%' : '100%' }}></div>
+                        <div className={`h-full bg-yellow-400 transition-all duration-500 ease-out`} style={{ width: step === 1 ? '20%' : step === 2 ? '40%' : step === 3 ? '60%' : step === 4 ? '80%' : '100%' }}></div>
                     </div>
 
                     <div className="p-8 md:p-12">
@@ -151,7 +204,7 @@ function SmartQuoteQuiz() {
                                     <ArrowLeft className="w-4 h-4 mr-1" /> Indietro
                                 </button>
                                 <div className="mb-8">
-                                    <span className="text-xs font-bold bg-white border border-slate-200 text-slate-500 px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">Step 2 di 2</span>
+                                    <span className="text-xs font-bold bg-white border border-slate-200 text-slate-500 px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">Step 2 di 4</span>
                                     <h3 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight uppercase tracking-tighter">Quanto è grande la superficie <br className="hidden md:block"/> da impermeabilizzare?</h3>
                                 </div>
                                 <div className="flex flex-col gap-4">
@@ -174,8 +227,86 @@ function SmartQuoteQuiz() {
                             </div>
                         )}
 
-                        {/* STEP 3 - RISULTATO */}
+                        {/* STEP 3 - Demolizione Pavimento */}
                         {step === 3 && (
+                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <button onClick={() => setStep(2)} className="flex items-center text-sm font-bold text-slate-400 hover:text-slate-800 transition-colors mb-6 uppercase tracking-wider">
+                                    <ArrowLeft className="w-4 h-4 mr-1" /> Indietro
+                                </button>
+                                <div className="mb-8">
+                                    <span className="text-xs font-bold bg-white border border-slate-200 text-slate-500 px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">Step 3 di 4</span>
+                                    <h3 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight uppercase tracking-tighter">Vuoi rimuovere il vecchio pavimento <br className="hidden md:block"/> prima dell'impermeabilizzazione?</h3>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <button 
+                                        onClick={() => handleDemolitionSelect('sì')}
+                                        className="group flex flex-col md:flex-row md:items-center justify-between p-6 rounded-[1.5rem] border-2 border-slate-200 hover:border-black hover:bg-slate-50 hover:shadow-lg hover:-translate-y-1 transition-all text-left bg-white"
+                                    >
+                                        <div className="flex flex-col mb-2 md:mb-0">
+                                            <span className="font-black text-2xl text-slate-900 uppercase tracking-tight group-hover:text-red-600 transition-colors">Sì, rimuovi tutto</span>
+                                            <span className="text-sm text-slate-500 font-medium">Vuoi partire da zero con massetto nuovo</span>
+                                        </div>
+                                        <div className="hidden md:flex w-12 h-12 bg-slate-100 rounded-full items-center justify-center group-hover:bg-yellow-400 transition-colors border border-slate-200 group-hover:border-yellow-400">
+                                            <ChevronRight className="w-6 h-6 text-slate-600 group-hover:text-black transition-colors" />
+                                        </div>
+                                    </button>
+                                    <button 
+                                        onClick={() => handleDemolitionSelect('no')}
+                                        className="group flex flex-col md:flex-row md:items-center justify-between p-6 rounded-[1.5rem] border-2 border-slate-200 hover:border-black hover:bg-slate-50 hover:shadow-lg hover:-translate-y-1 transition-all text-left bg-white"
+                                    >
+                                        <div className="flex flex-col mb-2 md:mb-0">
+                                            <span className="font-black text-2xl text-slate-900 uppercase tracking-tight group-hover:text-green-600 transition-colors">No, solo impermeabilizzazione</span>
+                                            <span className="text-sm text-slate-500 font-medium">Impermeabilizza direttamente sulle piastrelle esistenti</span>
+                                        </div>
+                                        <div className="hidden md:flex w-12 h-12 bg-slate-100 rounded-full items-center justify-center group-hover:bg-yellow-400 transition-colors border border-slate-200 group-hover:border-yellow-400">
+                                            <ChevronRight className="w-6 h-6 text-slate-600 group-hover:text-black transition-colors" />
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* STEP 4 - Fornitura e Posa Pavimento */}
+                        {step === 4 && (
+                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <button onClick={() => setStep(3)} className="flex items-center text-sm font-bold text-slate-400 hover:text-slate-800 transition-colors mb-6 uppercase tracking-wider">
+                                    <ArrowLeft className="w-4 h-4 mr-1" /> Indietro
+                                </button>
+                                <div className="mb-8">
+                                    <span className="text-xs font-bold bg-white border border-slate-200 text-slate-500 px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">Step 4 di 4</span>
+                                    <h3 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight uppercase tracking-tighter">Vuoi che forniamo e posiamo <br className="hidden md:block"/> il nuovo pavimento?</h3>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <button 
+                                        onClick={() => handleFlooringSelect('sì')}
+                                        className="group flex flex-col md:flex-row md:items-center justify-between p-6 rounded-[1.5rem] border-2 border-slate-200 hover:border-black hover:bg-slate-50 hover:shadow-lg hover:-translate-y-1 transition-all text-left bg-white"
+                                    >
+                                        <div className="flex flex-col mb-2 md:mb-0">
+                                            <span className="font-black text-2xl text-slate-900 uppercase tracking-tight group-hover:text-green-600 transition-colors">Sì, fornitura + posa</span>
+                                            <span className="text-sm text-slate-500 font-medium">Fornitura dal €25/mq in su + Posa €50/mq</span>
+                                        </div>
+                                        <div className="hidden md:flex w-12 h-12 bg-slate-100 rounded-full items-center justify-center group-hover:bg-yellow-400 transition-colors border border-slate-200 group-hover:border-yellow-400">
+                                            <ChevronRight className="w-6 h-6 text-slate-600 group-hover:text-black transition-colors" />
+                                        </div>
+                                    </button>
+                                    <button 
+                                        onClick={() => handleFlooringSelect('no')}
+                                        className="group flex flex-col md:flex-row md:items-center justify-between p-6 rounded-[1.5rem] border-2 border-slate-200 hover:border-black hover:bg-slate-50 hover:shadow-lg hover:-translate-y-1 transition-all text-left bg-white"
+                                    >
+                                        <div className="flex flex-col mb-2 md:mb-0">
+                                            <span className="font-black text-2xl text-slate-900 uppercase tracking-tight group-hover:text-orange-600 transition-colors">No, solo impermeabilizzazione</span>
+                                            <span className="text-sm text-slate-500 font-medium">Penserò al nuovo pavimento in seguito</span>
+                                        </div>
+                                        <div className="hidden md:flex w-12 h-12 bg-slate-100 rounded-full items-center justify-center group-hover:bg-yellow-400 transition-colors border border-slate-200 group-hover:border-yellow-400">
+                                            <ChevronRight className="w-6 h-6 text-slate-600 group-hover:text-black transition-colors" />
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* STEP 5 - RISULTATO */}
+                        {step === 5 && (
                             <div className="animate-in fade-in zoom-in-95 duration-500">
                                 <div className="flex items-center gap-4 mb-8">
                                     <div className="w-16 h-16 bg-yellow-400 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-3">
@@ -188,18 +319,29 @@ function SmartQuoteQuiz() {
                                     <p className="text-slate-700 text-lg md:text-xl font-medium mb-2">
                                         Il tuo caso: Superficie <span className="font-bold text-black border-b-2 border-yellow-400">{selections.sizeLabel}</span> con <span className="font-bold text-black border-b-2 border-yellow-400">{selections.situation.toLowerCase()}</span>.
                                     </p>
+                                    <p className="text-slate-700 text-lg md:text-xl font-medium mb-2">
+                                        Demolizione: <span className="font-bold text-black border-b-2 border-yellow-400">{selections.demolition === 'sì' ? 'Sì, rimuovi tutto' : 'No, solo impermeabilizzazione'}</span>
+                                    </p>
                                     <p className="text-slate-700 text-lg md:text-xl font-medium">
-                                        Soluzione Tecnica: <span className="font-black text-red-600 uppercase tracking-tight">Sistema "Membrana Continua" in Guaina Liquida Armata.</span>
+                                        Pavimento: <span className="font-bold text-black border-b-2 border-yellow-400">{selections.flooring === 'sì' ? 'Sì, fornitura + posa' : 'No, solo impermeabilizzazione'}</span>
                                     </p>
                                 </div>
 
                                 <div className="mb-10 text-center md:text-left bg-yellow-400 p-8 rounded-[1.5rem] shadow-[0_8px_30px_rgba(250,204,21,0.3)]">
                                     <p className="text-sm font-black uppercase text-slate-900 tracking-widest mb-2">Stima di Investimento</p>
-                                    <p className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter">{selections.priceRange}</p>
+                                    <p className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter">
+                                        €{finalPrice.min.toLocaleString()} - €{finalPrice.max.toLocaleString()}
+                                    </p>
+                                    {finalPrice.addedDesc && (
+                                        <p className="text-sm text-slate-900 mt-3 font-bold border-t border-slate-900 pt-3">
+                                            <span className="block">Incluso:</span>
+                                            {finalPrice.addedDesc}
+                                        </p>
+                                    )}
                                     <p className="text-xs text-slate-800 mt-3 font-bold">*Il prezzo definitivo sarà confermato dopo inquadramento o sopralluogo tecnico.</p>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+                                <div className={`grid ${selections.demolition === 'no' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'} gap-10 mb-12`}>
                                     {/* Cosa è incluso */}
                                     <div className="bg-white p-6 rounded-[1.5rem] border border-slate-200 h-fit">
                                         <h4 className="font-black text-xl text-slate-900 mb-6 uppercase tracking-tight flex items-center gap-3">
@@ -209,14 +351,24 @@ function SmartQuoteQuiz() {
                                             Cosa è incluso:
                                         </h4>
                                         <ul className="space-y-4">
-                                            {[
-                                                { t: "Preparazione fondo:", d: "Pulizia tecnica della superficie esistente." },
-                                                { t: "Primer aggrappante:", d: "Stesura promotore di adesione per massima tenuta." },
-                                                { t: "Punti critici:", d: "Sigillatura speciale di angoli, zoccolini e bocchettoni." },
-                                                { t: "Doppia mano armata:", d: "Posa di guaina liquida in due strati incrociati." },
-                                                { t: "Armatura strutturale:", d: "Inserimento rete in fibra anti-crepa." },
-                                                { t: "Materiali e Manodopera:", d: "Lavoro 'chiavi in mano', senza sorprese." }
-                                            ].map((item, i) => (
+                                            {(selections.demolition === 'sì' 
+                                                ? [
+                                                    { t: "Demolizione pavimento:", d: "Rimozione completa del vecchio pavimento." },
+                                                    { t: "Smaltimento macerie:", d: "Trasporto e smaltimento in discarica autorizzata." },
+                                                    { t: "Preparazione fondo:", d: "Pulizia e livellamento della superficie." },
+                                                    { t: "Ricostruzione massetto:", d: "Nuovo massetto cementizio per base stabile." },
+                                                    { t: "Guaina liquida:", d: "Applicazione doppia mano armata con fibra di vetro." },
+                                                    { t: "Finitura:", d: "Base pronta per la posa del nuovo pavimento." }
+                                                ]
+                                                : [
+                                                    { t: "Preparazione fondo:", d: "Pulizia tecnica della superficie esistente." },
+                                                    { t: "Primer aggrappante:", d: "Stesura promotore di adesione per massima tenuta." },
+                                                    { t: "Punti critici:", d: "Sigillatura speciale di angoli, zoccolini e bocchettoni." },
+                                                    { t: "Doppia mano armata:", d: "Posa di guaina liquida in due strati incrociati." },
+                                                    { t: "Armatura strutturale:", d: "Inserimento rete in fibra anti-crepa." },
+                                                    { t: "Materiali e Manodopera:", d: "Lavoro 'chiavi in mano', senza sorprese." }
+                                                ]
+                                            ).map((item, i) => (
                                                 <li key={i} className="flex items-start gap-3">
                                                     <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
                                                     <p className="text-sm md:text-base text-slate-600">
@@ -227,28 +379,30 @@ function SmartQuoteQuiz() {
                                         </ul>
                                     </div>
 
-                                    {/* Cosa hai azzerato */}
-                                    <div className="bg-red-50 p-6 rounded-[1.5rem] border border-red-100 h-fit">
-                                        <h4 className="font-black text-xl text-red-600 mb-6 uppercase tracking-tight flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-                                                <AlertTriangle className="w-5 h-5 text-red-600" />
-                                            </div>
-                                            I costi azzerati:
-                                        </h4>
-                                        <ul className="space-y-4">
-                                            {[
-                                                "Demolizione vecchio pavimento",
-                                                "Smaltimento macerie in discarica",
-                                                "Ricostruzione massetto",
-                                                "Disagi e polvere 15gg"
-                                            ].map((item, i) => (
-                                                <li key={i} className="flex justify-between items-center border-b border-red-200/50 pb-3 last:border-0 last:pb-0">
-                                                    <span className="text-sm md:text-base text-slate-700 font-bold line-through decoration-red-400">{item}</span>
-                                                    <span className="font-black text-green-600 bg-white px-3 py-1 rounded-lg text-sm shadow-sm">€ 0,00</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                    {/* Cosa hai azzerato - Mostra solo se NON c'è demolizione */}
+                                    {selections.demolition === 'no' && (
+                                        <div className="bg-red-50 p-6 rounded-[1.5rem] border border-red-100 h-fit">
+                                            <h4 className="font-black text-xl text-red-600 mb-6 uppercase tracking-tight flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                                                    <AlertTriangle className="w-5 h-5 text-red-600" />
+                                                </div>
+                                                I costi azzerati:
+                                            </h4>
+                                            <ul className="space-y-4">
+                                                {[
+                                                    "Demolizione vecchio pavimento",
+                                                    "Smaltimento macerie in discarica",
+                                                    "Ricostruzione massetto",
+                                                    "Disagi e polvere 15gg"
+                                                ].map((item, i) => (
+                                                    <li key={i} className="flex justify-between items-center border-b border-red-200/50 pb-3 last:border-0 last:pb-0">
+                                                        <span className="text-sm md:text-base text-slate-700 font-bold line-through decoration-red-400">{item}</span>
+                                                        <span className="font-black text-green-600 bg-white px-3 py-1 rounded-lg text-sm shadow-sm">€ 0,00</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Call to action */}

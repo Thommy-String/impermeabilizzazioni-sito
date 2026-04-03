@@ -1,9 +1,9 @@
 {
-  "name": "pro-casa-sito",
+  "name": "landing-impermeabilizzazioni",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
-  "homepage": "https://Thommy-String.github.io/ProCasaParquetSito",
+  "homepage": "https://www.ecosolutionsas.com/impermeabilizzazioni",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

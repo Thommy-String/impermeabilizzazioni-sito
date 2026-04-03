@@ -8,10 +8,13 @@ import './index.css'
 import HomePage from './pages/HomePage.jsx'
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.jsx'))
 
+// In dev → basename="/"  |  In build → basename="/impermeabilizzazioni"
+const basePath = import.meta.env.VITE_BASE_PATH?.replace(/\/$/, '') || '/'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basePath}>
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<HomePage />} />

@@ -6,7 +6,7 @@ export const PRIMARY_CITY = "Milano";
 // Usa il numero di telefono REALE che hai sul GBP
 export const PHONE_NUMBER = "+39 334 222 1212"; 
 export const EMAIL_ADDRESS = "info@impermeabilizzazionimilano.it"; 
-export const WEBSITE_URL = "https://www.impermeabilizzazionimilano.it";
+export const WEBSITE_URL = "https://www.ecosolutionsas.com/impermeabilizzazioni";
 // Questo è l'indirizzo di REGISTRAZIONE (es. casa tua)
 // Serve per lo Schema Markup, anche se è NASCOSTO sul GBP
 export const SCHEMA_ADDRESS = {

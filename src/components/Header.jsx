@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { COMPANY_NAME } from '../utils/constants';
+import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
 import logoImage from '../assets/logo/eco-solutions-logo-.jpeg';
 
 function Header() {
@@ -27,7 +27,7 @@ function Header() {
         `}
       </style>
 
-      <header className="header-nav bg-white/95 backdrop-blur-md border-b border-slate-100">
+      <header className="header-nav bg-white/70 backdrop-blur-xl border-b border-white/20 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-20 md:h-24">
             
@@ -42,21 +42,33 @@ function Header() {
               </Link>
               <div className="flex flex-col border-l-2 border-slate-200 pl-4 md:pl-6">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-xl md:text-3xl font-black text-slate-900 leading-none tracking-tighter uppercase">
-                    Ecosolution
+                  <span className="text-md md:text-xl font-black text-slate-900 leading-none tracking-tighter uppercase">
+                    Ecosolution s.a.s.
                   </span>
                   <span className="hidden md:inline-block text-[10px] font-black bg-blue-600 text-white px-2 py-0.5 rounded uppercase tracking-widest">
                     Ditta Edile
                   </span>
                 </div>
                 <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mt-1">
-                  <span className="text-[11px] md:text-sm font-bold text-slate-600 uppercase tracking-widest">
-                    Ditta Edile - Impermeabilizzazioni
+                  <span className="text-[10px] md:text-sm font-medium text-slate-600 uppercase tracking-widest">
+                    Ditta Edile Impermeabilizzazioni
                   </span>
                   <span className="hidden md:block w-1 h-1 bg-slate-300 rounded-full"></span>
-                  <span className="text-[9px] md:text-xs font-semibold text-blue-600 uppercase tracking-tight">
-                    Milano e tutta la Lombardia
-                  </span>
+                  {/* Phone CTA - Responsive */}
+                  <a 
+                    href={`tel:${PHONE_NUMBER.replace(/\D/g, '')}`}
+                    onClick={() => {
+                        if (typeof window.gtag_report_conversion === 'function') {
+                            window.gtag_report_conversion();
+                        }
+                    }}
+                    className="flex items-center gap-1.5 text-blue-600 font-bold hover:text-blue-800 transition-colors duration-200 group underline"
+                  >
+                    <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span className="text-xs md:text-sm">{PHONE_NUMBER}</span>
+                  </a>
                 </div>
               </div>
             </div>

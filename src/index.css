@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+@theme {
+  --animate-infinite-scroll: infinite-scroll 40s linear infinite;
+  --animate-bounce-subtle: bounce-subtle 2s ease-in-out infinite;
+}
+
+@keyframes infinite-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% / 3)); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Prevenire overflow orizzontale su mobile */
+html, body {
+  overflow-x: hidden;
+}
+
 /* Stili per lo slider (range input) */
 .range-thumb-blue::-webkit-slider-thumb {
   -webkit-appearance: none;
