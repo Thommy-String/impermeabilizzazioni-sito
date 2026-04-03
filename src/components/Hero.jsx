@@ -76,22 +76,6 @@ function Hero() {
               <ServiceAreasBadge />
             </div>
 
-            {/* 5 Stars + Social Proof */}
-            <div className="flex flex-col items-center gap-1 mb-6 px-4">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-0">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-[#facc15]" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-sm md:text-lg font-bold text-slate-100">
-                  <span className="font-medium tracking-tight italic">Oltre 327 interventi certificati</span>
-                </p>
-              </div>
-            </div>
-
             {/* H1 */}
             <h1 className="font-bold tracking-tighter leading-[0.95] md:leading-[0.85] flex flex-col items-center mb-4 w-full px-4">
               <span className="relative inline-block w-full">
@@ -120,64 +104,109 @@ function Hero() {
               </div>
             </div>
 
-            {/* White Pricing Card */}
-            <div className="px-4 w-full max-w-4xl mx-auto mb-12">
-              <div className="relative bg-white border-2 border-yellow-400 rounded-[2rem] p-8 md:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.6)] w-full overflow-hidden group">
+            {/* White Pricing Card - CLEAN & PROFESSIONAL */}
+            <div className="px-4 w-full max-w-5xl mx-auto mb-12">
+              <div className="relative bg-white border-2 border-yellow-400 rounded-[2rem] p-8 md:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.6)] w-full overflow-hidden">
+                
+                {/* Badge */}
                 <div className="absolute top-0 right-0 bg-yellow-400 text-black text-xs md:text-sm font-black px-6 py-2 uppercase tracking-tighter rounded-bl-2xl">
                   Miglior prezzo garantito
                 </div>
 
+                {/* Main Content - Flex Row */}
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-around gap-10">
-                  {/* Left: Price */}
+                  
+                  {/* LEFT: PRICE */}
                   <div className="flex flex-col items-center">
-                    <div className="relative mb-2">
-                      <span className="text-4xl md:text-5xl text-red-600 font-black italic relative">
+                    
+                    {/* Old Price with strikethrough */}
+                    <div className="relative mt-8 mb-4 w-32 md:w-40">
+                      <span className="text-4xl md:text-4xl text-red-600 font-medium italic relative">
                         €65
-                        <span className="absolute inset-x-0 top-1/2 h-1.5 bg-red-600 -rotate-12 opacity-80"></span>
+                        <span className="absolute -inset-x-6 top-1/2 h-0.5 bg-red-600 -rotate-6 opacity-60"></span>
                       </span>
                     </div>
-                    <div className="flex flex-col items-center">
-                      <span className="text-slate-900 font-black text-xl md:text-2xl uppercase leading-none">da</span>
+
+                    {/* New Price */}
+                    <div className="flex flex-col items-center mb-6">
+                      <span className="text-slate-400 font-medium text-md md:text-2xl uppercase leading-none">da</span>
                       <div className="flex items-start">
-                        <span className="text-7xl md:text-9xl font-black text-slate-900 leading-none tracking-tighter">€30</span>
+                        <span className="text-7xl md:text-8xl font-black text-slate-900 leading-none tracking-tighter">€30</span>
                         <span className="text-3xl md:text-4xl font-black text-slate-900 mt-2">/MQ</span>
                       </div>
                     </div>
-                    <p className="mt-4 text-slate-600 font-bold uppercase tracking-widest text-sm text-center">Tutto incluso</p>
+
+                    <p className="text-slate-600 font-bold uppercase tracking-widest text-sm text-center">Lavoro Completo</p>
+
+                    {/* Google Social Proof */}
+                    <div className="flex flex-col items-center gap-2 mt-6 pt-6 border-t border-slate-200">
+                      <div className="flex items-center gap-2">
+                        <img
+                          alt="Google"
+                          className="w-4 h-4 object-contain"
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/3840px-Google_%22G%22_logo.svg.png"
+                        />
+                        <div className="flex items-center gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <svg key={i} className="w-3.5 h-3.5 text-[#facc15]" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-xs md:text-sm font-medium text-slate-600 leading-tight">
+                        Oltre 327 interventi certificati
+                      </p>
+                    </div>
                   </div>
 
+                  {/* DIVIDER */}
                   <div className="h-px md:h-24 w-full md:w-px bg-slate-200"></div>
 
-                  {/* Right: Trust Signals */}
+                  {/* RIGHT: BENEFITS */}
                   <div className="flex flex-col gap-6 w-full md:w-auto text-left">
-                    <div className="flex items-center gap-4">
+                    
+                    {/* Benefit 1 */}
+                    <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <CheckCircle className="w-7 h-7 text-green-600" aria-hidden="true" />
+                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-green-100">
+                          <span className="text-green-600 font-black text-lg">✓</span>
+                        </div>
                       </div>
                       <div>
-                        <p className="text-slate-900 font-black text-base md:text-xl leading-none mb-1 uppercase tracking-tight">Anche senza demolizioni</p>
+                        <p className="text-slate-900 font-black text-sm md:text-base leading-tight mb-1 uppercase tracking-tight">Sigillatura 100% impermeabile</p>
+                        <p className="text-slate-500 text-xs md:text-sm font-bold uppercase">48-72 ore massimo</p>
+                      </div>
+                    </div>
+
+                    {/* Benefit 2 */}
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100">
+                          <span className="text-blue-600 font-black text-lg">✓</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-slate-900 font-black text-sm md:text-base leading-tight mb-1 uppercase tracking-tight">Anche Senza demolizioni</p>
                         <p className="text-slate-500 text-xs md:text-sm font-bold uppercase">Sul fondo esistente</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
+
+                    {/* Benefit 3 */}
+                    <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <Shield className="w-7 h-7 text-blue-600" aria-hidden="true" />
+                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-orange-100">
+                          <span className="text-orange-500 font-black text-lg">✓</span>
+                        </div>
                       </div>
                       <div>
-                        <p className="text-slate-900 font-black text-base md:text-xl leading-none mb-1 uppercase tracking-tight">PREZZO COMPETITIVO</p>
-                        <p className="text-slate-500 text-xs md:text-sm font-bold uppercase">Il miglior rapporto qualità/prezzo</p>
+                        <p className="text-slate-900 font-black text-sm md:text-base leading-tight mb-1 uppercase tracking-tight">Pronto in 1-2 giorni</p>
+                        <p className="text-slate-500 text-xs md:text-sm font-bold uppercase">Certificato e testato</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <div className="flex-shrink-0">
-                        <Clock className="w-7 h-7 text-orange-500" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <p className="text-slate-900 font-black text-base md:text-xl leading-none mb-1 uppercase tracking-tight">PRONTO IN 48 ORE</p>
-                        <p className="text-slate-500 text-xs md:text-sm font-bold uppercase">Intervento rapido certificato</p>
-                      </div>
-                    </div>
+
                   </div>
+
                 </div>
               </div>
             </div>
