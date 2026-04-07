@@ -76,24 +76,7 @@ function Hero() {
               <ServiceAreasBadge />
             </div>
 
-            {/* H1 */}
-            <h1 className="font-bold tracking-tighter leading-[0.95] md:leading-[0.85] flex flex-col items-center mb-4 w-full px-4">
-              <span className="relative inline-block w-full">
-                <span className="relative z-10 text-2xl sm:text-6xl md:text-7xl lg:text-8xl text-white uppercase break-words">
-                  <span className="text-white-300"> <span className="text-yellow-400">Impermeabilizzazioni</span></span> <br />
-                </span>
-                <span className="absolute inset-x-0 bottom-2 h-4 bg-yellow-400/30 -rotate-1 z-0"></span>
-              </span>
-              <span className="text-md sm:text-3xl md:text-4xl lg:text-5xl text-white leading-tight mt-4 px-2 font-bold">
-                <span className="relative inline-block">
-                  <span className="relative z-10">Terrazzi, Balconi, Tetti</span>
-                </span>
-                <br />
-                <span className="text-yellow-300 mt-2 block">IN 2-3 GIORNI ANCHE SENZA DEMOLIZIONI</span>
-              </span>
-            </h1>
-
-            {/* Infinite Scroll Carousel */}
+            {/* Work Carousel - Outside Card, Above H1 */}
             <div className="w-full mb-12 overflow-hidden px-0">
               <div className="w-full overflow-hidden py-4 select-none relative">
                 <div className="flex animate-infinite-scroll hover:[animation-play-state:paused] gap-4 w-max">
@@ -104,112 +87,230 @@ function Hero() {
               </div>
             </div>
 
-            {/* White Pricing Card - CLEAN & PROFESSIONAL */}
-            <div className="px-4 w-full max-w-5xl mx-auto mb-12">
-              <div className="relative bg-white border-2 border-yellow-400 rounded-[2rem] p-8 md:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.6)] w-full overflow-hidden">
+            {/* H1 */}
+            <h1 className="font-bold tracking-tighter leading-[1.1] md:leading-[1.0] flex flex-col items-center mb-4 w-full px-4">
+              <span className="relative inline-block w-full text-xl sm:text-3xl md:text-4xl lg:text-5xl text-white uppercase break-words text-center">
+                 <span className="text-red-500"> Stop Definitivo a Infiltrazioni</span>
+                <br className="block md:hidden" />
+                <span className="text-white"> su Terrazzi, Balconi e tetti</span>
+                <br className="block" />
+                <span className="text-white">in 2-3 giorni,</span>
+                <br className="hidden md:block" />
+                <span className="text-red-500"> Senza Demolire</span>
+                <br className="block md:hidden" />
+                <span className="text-white"> il Pavimento.</span>
+              </span>
+            </h1>
+
+            {/* Benefit Checkpoints */}
+            <div className="w-full max-w-4xl mx-auto px-4 mb-12 flex flex-col gap-4">
+              
+              {/* Checkpoint 1 */}
+              <div className="flex items-start gap-4 text-left">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="flex items-center justify-center h-6 w-6 rounded-full bg-green-400">
+                    <span className="text-white font-black text-sm">✓</span>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-white font-black text-base md:text-lg leading-tight mb-2 uppercase tracking-tight">Zero Demolizioni, Zero Polvere:</p>
+                  <p className="text-white/80 text-base md:text-lg lg:text-lg leading-relaxed font-medium">Direttamente sopra il pavimento o la vecchia guaina, senza settimane di macerie, rumori e costi di smaltimento.</p>
+                </div>
+              </div>
+
+              {/* Checkpoint 2 */}
+              <div className="flex items-start gap-4 text-left">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="flex items-center justify-center h-6 w-6 rounded-full bg-green-400">
+                    <span className="text-white font-black text-sm">✓</span>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-white font-black text-base md:text-lg leading-tight mb-2 uppercase tracking-tight">Stop Definitivo all'acqua:</p>
+                  <p className="text-white/80 text-base md:text-lg lg:text-lg leading-relaxed font-medium">La guaina liquida crea uno scudo continuo impenetrabile, senza giunture, che sigilla ogni micro-fessura dove l'acqua prima passava.</p>
+                </div>
+              </div>
+
+              {/* Checkpoint 3 */}
+              <div className="flex items-start gap-4 text-left">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="flex items-center justify-center h-6 w-6 rounded-full bg-green-400">
+                    <span className="text-white font-black text-sm">✓</span>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-white font-black text-base md:text-lg leading-tight mb-2 uppercase tracking-tight">Pronto in soli 2-3 Giorni:</p>
+                  <p className="text-white/80 text-base md:text-lg lg:text-lg leading-relaxed font-medium">Calpestabile e vivibile</p>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Infinite Scroll Carousel - INSIDE CARD */}
+            {/* White Pricing Section - Full Width */}
+            <div className="w-full bg-white py-12 md:py-16 mb-16 md:mb-20">
+              <div className="relative px-4 w-full max-w-6xl mx-auto overflow-hidden">
                 
                 {/* Badge */}
-                <div className="absolute top-0 right-0 bg-yellow-400 text-black text-xs md:text-sm font-black px-6 py-2 uppercase tracking-tighter rounded-bl-2xl">
-                  Miglior prezzo garantito
+                <div className="mb-8 inline-block bg-yellow-400 text-black text-xs md:text-sm font-bold px-6 py-2 uppercase tracking-tighter rounded-full">
+                 Promo 2026
                 </div>
 
                 {/* Main Content - Flex Row */}
-                <div className="relative z-10 flex flex-col md:flex-row items-center justify-around gap-10">
+                <div className="relative z-10 flex flex-col md:flex-row items-start justify-between gap-12 md:gap-16">
                   
                   {/* LEFT: PRICE */}
-                  <div className="flex flex-col items-center">
+                  <div className="flex flex-col items-center gap-10 w-full md:w-auto">
                     
-                    {/* Old Price with strikethrough */}
-                    <div className="relative mt-8 mb-4 w-32 md:w-40">
-                      <span className="text-4xl md:text-4xl text-red-600 font-medium italic relative">
-                        €65
-                        <span className="absolute -inset-x-6 top-1/2 h-0.5 bg-red-600 -rotate-6 opacity-60"></span>
-                      </span>
-                    </div>
-
-                    {/* New Price */}
-                    <div className="flex flex-col items-center mb-6">
-                      <span className="text-slate-400 font-medium text-md md:text-2xl uppercase leading-none">da</span>
-                      <div className="flex items-start">
-                        <span className="text-7xl md:text-8xl font-black text-slate-900 leading-none tracking-tighter">€30</span>
-                        <span className="text-3xl md:text-4xl font-black text-slate-900 mt-2">/MQ</span>
-                      </div>
-                    </div>
-
-                    <p className="text-slate-600 font-bold uppercase tracking-widest text-sm text-center">Lavoro Completo</p>
-
-                    {/* Google Social Proof */}
-                    <div className="flex flex-col items-center gap-2 mt-6 pt-6 border-t border-slate-200">
-                      <div className="flex items-center gap-2">
-                        <img
-                          alt="Google"
-                          className="w-4 h-4 object-contain"
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/3840px-Google_%22G%22_logo.svg.png"
-                        />
-                        <div className="flex items-center gap-0.5">
-                          {[...Array(5)].map((_, i) => (
-                            <svg key={i} className="w-3.5 h-3.5 text-[#facc15]" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                            </svg>
-                          ))}
+                    {/* Prices */}
+                    <div className="flex flex-col items-center gap-4">
+                      {/* Price Row - Both on same line */}
+                      <div className="flex items-center gap-6 justify-center">
+                        {/* Old Price */}
+                        <div className="flex flex-col items-center">
+                          <span className="text-xs text-red-600 uppercase font-bold tracking-wide mb-1">Prima</span>
+                          <span className="text-3xl md:text-4xl text-red-600 font-medium line-through">€55</span>
+                        </div>
+                        
+                        {/* Arrow/Divider */}
+                        <div className="text-slate-300 text-2xl font-bold">→</div>
+                        
+                        {/* New Price */}
+                        <div className="flex flex-col items-center">
+                          <span className="text-xs text-green-600 uppercase font-bold tracking-wide mb-1">Ora</span>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-2xl md:text-3xl font-black text-green-600 leading-none tracking-tighter">€35</span>
+                            <span className="text-sm md:text-base font-black text-green-600">/MQ</span>
+                          </div>
                         </div>
                       </div>
-                      <p className="text-xs md:text-sm font-medium text-slate-600 leading-tight">
-                        Oltre 327 interventi certificati
+
+                      {/* Subtext */}
+                      <p className="text-xs text-green-600 font-bold uppercase tracking-widest">✓ Impermeabilizzazione completa</p>
+                    </div>
+
+                    {/* Google Social Proof */}
+                    <div className="flex items-center gap-3 bg-slate-50 px-4 py-3 rounded-lg border border-slate-200">
+                      <img
+                        alt="Google"
+                        className="w-4 h-4 object-contain"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/3840px-Google_%22G%22_logo.svg.png"
+                      />
+                      <div className="flex items-center gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <svg key={i} className="w-3 h-3 text-[#facc15]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                        ))}
+                      </div>
+                      <p className="text-xs font-bold text-slate-700">
+                        127+ interventi
                       </p>
                     </div>
                   </div>
 
-                  {/* DIVIDER */}
-                  <div className="h-px md:h-24 w-full md:w-px bg-slate-200"></div>
-
-                  {/* RIGHT: BENEFITS */}
-                  <div className="flex flex-col gap-6 w-full md:w-auto text-left">
+                  {/* RIGHT: COMPARISON TABLE */}
+                  <div className="w-full md:w-auto text-left flex-1">
                     
-                    {/* Benefit 1 */}
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-green-100">
-                          <span className="text-green-600 font-black text-lg">✓</span>
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-slate-900 font-black text-sm md:text-base leading-tight mb-1 uppercase tracking-tight">Sigillatura 100% impermeabile</p>
-                        <p className="text-slate-500 text-xs md:text-sm font-bold uppercase">48-72 ore massimo</p>
-                      </div>
+                    <div className="overflow-x-auto">
+                      <table className="text-xs md:text-sm border-collapse">
+                        <thead>
+                          <tr>
+                            <th className="text-left font-black uppercase tracking-tight text-slate-900 pb-2 pr-3"></th>
+                            <th className="text-center font-black uppercase tracking-tight text-slate-500 pb-2 px-2">Vecchio Sistema</th>
+                            <th className="text-center font-black uppercase tracking-tight text-green-600 pb-2 px-2">Nuovo Sistema ✓</th>
+                          </tr>
+                          <tr>
+                            <td colSpan="3" className="h-px bg-slate-200"></td>
+                          </tr>
+                        </thead>
+                        <tbody className="space-y-1">
+                          <tr>
+                            <td className="text-slate-900 font-bold py-2 pr-3">Demolizione necessaria</td>
+                            <td className="text-center py-2 px-2">
+                              <span className="text-red-500 font-black text-lg">✕</span>
+                            </td>
+                            <td className="text-center py-2 px-2 bg-green-50">
+                              <span className="text-green-600 font-black">✓</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="text-slate-900 font-bold py-2 pr-3">Senza sporco e macerie</td>
+                            <td className="text-center py-2 px-2 text-red-600">
+                              <span className="text-red-500 font-black text-lg">✕</span>
+                            </td>
+                            <td className="text-center py-2 px-2 bg-green-50">
+                              <span className="text-green-600 font-black">✓</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="text-slate-900 font-bold py-2 pr-3">Impermeabilizzazione garantita</td>
+                            <td className="text-center py-2 px-2">
+                              <span className="text-red-500 font-black text-lg">✕</span>
+                            </td>
+                            <td className="text-center py-2 px-2 bg-green-50">
+                              <span className="text-green-600 font-black">✓</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="text-slate-900 font-bold py-2 pr-3">Protezione da infiltrazioni</td>
+                            <td className="text-center py-2 px-2">
+                              <span className="text-red-500 font-black text-lg">✕</span>
+                            </td>
+                            <td className="text-center py-2 px-2 bg-green-50">
+                              <span className="text-green-600 font-black">✓</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="text-slate-900 font-bold py-2 pr-3">Sigillatura completa</td>
+                            <td className="text-center py-2 px-2">
+                              <span className="text-red-500 font-black text-lg">✕</span>
+                            </td>
+                            <td className="text-center py-2 px-2 bg-green-50">
+                              <span className="text-green-600 font-black">✓</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="text-slate-900 font-bold py-2 pr-3">Pavimento nuovo incluso</td>
+                            <td className="text-center py-2 px-2">
+                              <span className="text-red-500 font-black text-lg">✕</span>
+                            </td>
+                            <td className="text-center py-2 px-2 bg-green-50">
+                              <span className="text-green-600 font-black">✓</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="text-slate-900 font-bold py-2 pr-3">Garanzia 10 Anni</td>
+                            <td className="text-center py-2 px-2 text-slate-400 text-xs">
+                              No
+                            </td>
+                            <td className="text-center py-2 px-2 bg-green-50 text-green-600 font-black">
+                              Sì
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="text-slate-900 font-bold py-2 pr-3">Prezzo al MQ</td>
+                            <td className="text-center py-2 px-2 text-red-600 font-black text-sm">
+                              €80-120
+                            </td>
+                            <td className="text-center py-2 px-2 bg-green-50 text-green-600 font-black text-sm">
+                              €30
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
 
-                    {/* Benefit 2 */}
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100">
-                          <span className="text-blue-600 font-black text-lg">✓</span>
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-slate-900 font-black text-sm md:text-base leading-tight mb-1 uppercase tracking-tight">Anche Senza demolizioni</p>
-                        <p className="text-slate-500 text-xs md:text-sm font-bold uppercase">Sul fondo esistente</p>
-                      </div>
-                    </div>
-
-                    {/* Benefit 3 */}
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-orange-100">
-                          <span className="text-orange-500 font-black text-lg">✓</span>
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-slate-900 font-black text-sm md:text-base leading-tight mb-1 uppercase tracking-tight">Pronto in 1-2 giorni</p>
-                        <p className="text-slate-500 text-xs md:text-sm font-bold uppercase">Certificato e testato</p>
-                      </div>
-                    </div>
-
+                    <p className="text-slate-600 text-xs md:text-sm font-medium mt-4 italic">
+                      *La guaina liquida offre protezione totale senza demolire
+                    </p>
                   </div>
 
                 </div>
               </div>
             </div>
+
+            {/* Infinite Scroll Carousel - REMOVED (now inside card) */}
 
             {/* CTA Button */}
             <div className="flex flex-col items-center justify-center gap-5 w-full px-4 mb-10 relative z-20">
